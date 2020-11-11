@@ -13,3 +13,12 @@ Because I wanted to.
 ## Why the name ?
 
 Because it makes you angry. Or when you are angry because you can not find this middle ground.
+
+## Roadmap / to do list
+
+* [ ] grr-parser
+  * [ ] documentation
+  * [ ] add comments support
+  * [ ] check if types used are ok
+* [ ] grr-vm
+* [ ] grr-lang

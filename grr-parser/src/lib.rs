@@ -177,4 +177,43 @@ mod tests {
             ])
         );
     }
+
+    #[test]
+    fn simple_block() {
+        assert_eq!(
+            statements()
+                .easy_parse(position::Stream::new("{\n  a b\n  c d\n}"))
+                .map(|t| t.0),
+            Ok(vec![CodeStatement(vec![CodeExpression::Block(Box::new(
+                CodeBlock(vec![
+                    CodeStatement(vec![]),
+                    CodeStatement(vec![
+                        CodeExpression::Identifier("a".into()),
+                        CodeExpression::Identifier("b".into()),
+                    ]),
+                    CodeStatement(vec![
+                        CodeExpression::Identifier("c".into()),
+                        CodeExpression::Identifier("d".into()),
+                    ]),
+                    CodeStatement(vec![]),
+                ])
+            ))])])
+        );
+    }
+    #[test]
+    fn embedded_block() {
+        assert_eq!(
+            statements()
+                .easy_parse(position::Stream::new("a { b c } d"))
+                .map(|t| t.0),
+            Ok(vec![CodeStatement(vec![
+                CodeExpression::Identifier("a".into()),
+                CodeExpression::Block(Box::new(CodeBlock(vec![CodeStatement(vec![
+                    CodeExpression::Identifier("b".into()),
+                    CodeExpression::Identifier("c".into()),
+                ])]))),
+                CodeExpression::Identifier("d".into()),
+            ])])
+        );
+    }
 }

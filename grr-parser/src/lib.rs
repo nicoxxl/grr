@@ -30,7 +30,12 @@ where
     Input: Stream<Token = char>,
     Input::Error: ParseError<Input::Token, Input::Range, Input::Position>,
 {
-    many1(alpha_num()).map(|identifier: String| CodeExpression::Identifier(identifier))
+    // TODO : Cleaner implementation
+    let identifier_chars = satisfy(|ch: char| {
+        ch.is_alphanumeric() || ch == '#' || ch == ':' || ch == '/' || ch == '.'
+    })
+    .expected("letter, digit or in '#:/.'");
+    many1(identifier_chars).map(|identifier: String| CodeExpression::Identifier(identifier))
 }
 
 pub fn quoted<Input>() -> impl Parser<Input, Output = CodeExpression>

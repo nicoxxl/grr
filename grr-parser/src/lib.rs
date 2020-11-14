@@ -32,9 +32,9 @@ where
 {
     // TODO : Cleaner implementation
     let identifier_chars = satisfy(|ch: char| {
-        ch.is_alphanumeric() || ch == '#' || ch == ':' || ch == '/' || ch == '.' || ch == '_'
+        ch.is_alphanumeric() || ch == '#' || ch == ':' || ch == '/' || ch == '.' || ch == '_' || ch == '-'
     })
-    .expected("letter, digit or in '#:/._'");
+    .expected("letter, digit or in '#:/._-'");
     many1(identifier_chars).map(|identifier: String| CodeExpression::Identifier(identifier))
 }
 

@@ -83,6 +83,13 @@ where
     sep_by(statement(), token('\n'))
 }
 
+pub fn easy_parse(input: &str) -> Vec<CodeStatement> {
+    statements()
+        .easy_parse(combine::stream::position::Stream::new(input))
+        .unwrap()
+        .0
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
